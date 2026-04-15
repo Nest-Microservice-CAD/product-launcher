@@ -28,6 +28,8 @@ services:
     command: npm run start:dev
   
   orders-ms:
+    depends_on:
+      - orders-db
     build: ./orders-ms
     ports:
       - "3002:3002"
@@ -37,8 +39,6 @@ services:
       - NATS_SERVERS=nats://nats-server:4222
     volumes:
       - ./orders-ms/src:/usr/src/app/src
-    depends_on:
-      - orders-db
     command: npm run start:dev
 
   orders-db:
